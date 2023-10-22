@@ -1,7 +1,8 @@
-/* canvas{
-    display: block;
-    margin: 10px auto;
-} */
+/* Course: SENG 513 */
+/* Date: OCT 22, 2023 */
+/* Assignment 2 */
+/* Name: Carlos Sujanto */
+/* UCID: 30143341 */
 
 *{
     box-sizing: border-box;
@@ -92,6 +93,13 @@
     object-position: -150px -117px;
     width: 3000px;
     animation: moveSpriteSheet 1s steps(8) infinite;
+    image-rendering: pixelated;
+}
+
+#player2Sprite{
+    object-position: -67px -54px;
+    width: 1476px;
+    animation: moveSpriteSheet 1s steps(6) infinite;
     image-rendering: pixelated;
 }
 

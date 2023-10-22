@@ -1,10 +1,17 @@
+/* Course: SENG 513 */
+/* Date: OCT 22, 2023 */
+/* Assignment 2 */
+/* Name: Carlos Sujanto */
+/* UCID: 30143341 */
+
 const GRAVITY = 0.7;
 const ATTACKBOXWIDTH = 150;
 const ATTACKBOXHEIGHT = 50;
-const JUMPHEIGHT = -20;
+const JUMPHEIGHT = -15;
 const MOVEMENTSPEED = 5;
 const PLAYSPACEWIDTH = 1280;
 const PLAYSPACEHEIGHT = 640;
+const GAMETIME = 60;
 
 const playSpace = document.getElementById('playSpace');
 playSpace.style.width = `${PLAYSPACEWIDTH}px`;
@@ -155,7 +162,7 @@ function declareWinner({player1, player2, timeId}){
     }
 }
 
-let time = 10;
+let time = GAMETIME;
 let timeId; // to stop decreaseTimer() being called after game is done
 function decreaseTimer(){
     if(time > 0){
@@ -169,7 +176,20 @@ function decreaseTimer(){
     }
 }
 
-decreaseTimer();
+function displayPlayerSprite({player, playerSpriteSrc, steps}){
+    const playerImg = document.getElementById(player);
+    playerImg.src = playerSpriteSrc;
+
+        // Get the existing animation properties
+    const playerProperties = getComputedStyle(playerImg).animation;
+    
+    // Modify the steps value
+    const modifiedPlayerProperties = playerProperties.replace(/steps\(\d+\)/, `steps(${steps})`);
+    
+    // Apply the modified animation properties
+    playerImg.style.animation = modifiedPlayerProperties;
+
+}
 
 // make animation loop
 function animate(){
@@ -179,24 +199,35 @@ function animate(){
     player1.update();
     player2.update();
 
+    displayPlayerSprite({player: "player1Sprite", playerSpriteSrc: "./assets/player1/Idle.png", steps: 2});
 
     player1.speed.x = 0
     if(keys.d.pressed){
         player1.speed.x = MOVEMENTSPEED;
+        displayPlayerSprite({player: "player1Sprite", playerSpriteSrc: "./assets/player1/Run.png", steps: 8});
     }
     else if(keys.a.pressed){
         player1.speed.x = -MOVEMENTSPEED;
+        displayPlayerSprite({player: "player1Sprite", playerSpriteSrc: "./assets/player1/Run.png", steps: 8});
     }
-
+    else if(keys.w.pressed){
+        displayPlayerSprite({player: "player1Sprite", playerSpriteSrc: "./assets/player1/Jump.png", steps: 2});
+    }
     
+    displayPlayerSprite({player: "player2Sprite", playerSpriteSrc: "./assets/player2/Idle.png", steps: 6});
     player2.speed.x = 0 // to stop when no keys is pressed
     if(keys.arrowRight.pressed){
         player2.speed.x = MOVEMENTSPEED;
+        displayPlayerSprite({player: "player2Sprite", playerSpriteSrc: "./assets/player2/Run.png", steps: 8});
     }
     else if(keys.arrowLeft.pressed){
         player2.speed.x = -MOVEMENTSPEED;
+        displayPlayerSprite({player: "player2Sprite", playerSpriteSrc: "./assets/player2/Run.png", steps: 8});
     }
-    
+    else if(keys.arrowUp.pressed){
+
+        displayPlayerSprite({player: "player2Sprite", playerSpriteSrc: "./assets/player2/Jump.png", steps: 2});
+    }
 
     if (checkCollision({object1: player1, object2: player2}) && player1.isAttacking){
         player1.isAttacking = false;
@@ -333,4 +364,6 @@ window.addEventListener('keyup', (event) => {
     }
 }) 
 
+
+decreaseTimer();
 animate();

@@ -1,3 +1,8 @@
+<!-- Course: SENG 513 -->
+<!-- Date: OCT 22, 2023 -->
+<!-- Assignment 2 -->
+<!-- Name: Carlos Sujanto -->
+<!-- UCID: 30143341 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,34 +11,40 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- TO DO: make it more beautiful -->
+    <div><strong>TWO KINGS (desktop), Fighter Game, Defeat the other king, Controls: (a,w,d,space) and (arrowLeft,arrowRight,arrowUp, \)</strong></div>
     <div class="game">
         <img id="bgImg" src="" alt="background">
-        <div class="ui">
-            <!-- p1 profile pic -->
-            <div class="avatar"></div>
-            <!-- p1 health bar -->
-            <div class="healthBarPlaceholder">
-                <div class="healthBar"></div>
-                <div class="healthBarBg"id="player1Health"></div>
+        <div class="gameElements">
+            <div class="ui">
+                <!-- p1 profile pic -->
+                <div class="avatar"></div>
+                <!-- p1 health bar -->
+                <div class="healthBarPlaceholder">
+                    <div class="healthBar"></div>
+                    <div class="healthBarBg"id="player1Health"></div>
+                </div>
+                <!-- timer -->
+                <div class="timer">10</div>
+                 <!-- p2 health bar -->
+                <div class="healthBarPlaceholder">
+                    <div class="healthBar" ></div>
+                    <div class="healthBarBg"id="player2Health"></div>
+                </div>
+                <!-- p2 profile pic -->
+                <div class="avatar"></div>
             </div>
-            <!-- timer -->
-            <div class="timer">10</div>
-             <!-- p2 health bar -->
-            <div class="healthBarPlaceholder">
-                <div class="healthBar" ></div>
-                <div class="healthBarBg"id="player2Health"></div>
+            <div id="label">Tie</div>
+            <div id="playSpace">
+                <div class="player" id="player1">
+                    <img id="player1Sprite" src="./assets/player1/Idle.png">
+                </div>
+                <div class="attackBox" id="attackBox1"></div>
+                <div class="player" id="player2">
+                    <img id="player2Sprite" src="./assets/player2/Idle.png">
+                </div>
+                <div class="attackBox" id="attackBox2"></div>
             </div>
-            <!-- p2 profile pic -->
-            <div class="avatar"></div>
-        </div>
-        <div id="label">Tie</div>
-        <div id="playSpace">
-            <div class="player" id="player1">
-                <img id="player1Sprite" src="./assets/player1/Idle.png">
-            </div>
-            <div class="attackBox" id="attackBox1"></div>
-            <div class="player" id="player2"></div>
-            <div class="attackBox" id="attackBox2"></div>
         </div>
     </div>
     
