@@ -36,15 +36,15 @@ playSpace.style.height = `${PLAYSPACEHEIGHT}px`;
 //     imageSrc: "./assets/bg1.png"
 // })
 
-function drawBg({id, imageSrc}){
-    element = document.getElementById(id);
-    element.src = imageSrc;
-}
+// function drawBg({id, imageSrc}){
+//     element = document.getElementById(id);
+//     element.src = imageSrc;
+// }
 
-drawBg({
-    id: 'bgImg',
-    imageSrc: "./assets/bg1.png"
-});
+// drawBg({
+//     id: 'bgImg',
+//     imageSrc: "./assets/bg1.png"
+// });
 
 
 class Player{
