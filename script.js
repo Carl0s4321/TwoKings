@@ -19,6 +19,7 @@ playSpace.style.height = `${PLAYSPACEHEIGHT}px`;
 
 class Player{
     constructor({id,attackBoxId, position, speed, color, offset}) { // {a,b} to keep arguments clean. Order doesn't matter
+        this.id = id;
         this.element = document.getElementById(id);
         this.attackBoxElement = document.getElementById(attackBoxId);
         this.position = position;
@@ -34,14 +35,22 @@ class Player{
             width: ATTACKBOXWIDTH,
             height: ATTACKBOXHEIGHT
         }
-        this.color = color; //TESTING PURPOSE
+        // this.color = color; //TESTING PURPOSE
         this.isAttacking;
         this.health = 100;
         this.facingRight = null;
     }
 
     draw(){
-        this.element.style.transform = `translate(${this.position.x}px, ${this.position.y}px)`;
+        if(!this.facingRight && this.id === 'player1' && this.isAttacking){
+            this.element.style.transform = `translate(${this.position.x - 150}px, ${this.position.y}px)`;
+        }
+        else if(!this.facingRight && this.id === 'player2' && this.isAttacking){
+            this.element.style.transform = `translate(${this.position.x - 150}px, ${this.position.y}px)`;
+        }
+        else{
+            this.element.style.transform = `translate(${this.position.x}px, ${this.position.y}px)`;
+        }
         this.element.style.width = `${this.width}px`;
         this.element.style.height = `${this.height}px`;
         // TESTING PURPOSE
@@ -52,7 +61,7 @@ class Player{
             this.attackBoxElement.style.width = `${this.attackBox.width}px`;
             this.attackBoxElement.style.height = `${this.attackBox.height}px`;
             // TESTING PURPOSE
-            this.attackBoxElement.style.backgroundColor = 'green';
+            // this.attackBoxElement.style.backgroundColor = 'green';
         }
     }
 
@@ -78,9 +87,9 @@ class Player{
 
     attack(){
         this.isAttacking = true;
-        setTimeout(() => {
-            this.isAttacking = false;
-        }, 100)
+        // setTimeout(() => {
+        //     this.isAttacking = false;
+        // }, 1000)
     }
 }
 
@@ -317,7 +326,7 @@ window.addEventListener('keydown', (event) => {
     }
     else if (event.key == 'a'){
         keys.a.pressed = true;
-        player1.attackBox.offset.x = -(ATTACKBOXWIDTH/2);
+        player1.attackBox.offset.x = -(ATTACKBOXWIDTH/1.5);
     }
     else if (event.key == 'w'){
         // to stop spamming down w
@@ -340,7 +349,7 @@ window.addEventListener('keydown', (event) => {
     }
     else if (event.key == 'ArrowLeft'){
         keys.arrowLeft.pressed = true;
-        player2.attackBox.offset.x = -(ATTACKBOXWIDTH/2);
+        player2.attackBox.offset.x = -(ATTACKBOXWIDTH/1.5);
     }
     else if (event.key == 'ArrowUp'){
         if(!keys.arrowUp.pressed){
@@ -370,6 +379,7 @@ window.addEventListener('keyup', (event) => {
     }
     else if (event.key == " "){
         keys.space.pressed = false;
+        player1.isAttacking = false;
     }
 
 
@@ -386,6 +396,7 @@ window.addEventListener('keyup', (event) => {
     }
     else if (event.key == '\\'){
         keys.backSlash.pressed = false;
+        player2.isAttacking = false;
     }
 }) 
 
