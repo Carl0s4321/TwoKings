@@ -8,10 +8,27 @@
     box-sizing: border-box;
 }
 
+.app{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.app h1{
+    font-size: 3em;
+    margin-bottom: 0px;
+}
+
+.app p{
+    margin: 5px;
+    font-size: 1.5em;
+}
+
 .game{
     position: relative;
     display: inline-block;
     overflow: hidden;
+    margin: 10px;
 }
 
 .ui{
@@ -90,6 +107,38 @@
 }
 
 #player1Sprite{
+    /* IDLE */
+    /*     
+    divWidth = 75;
+    divHeight = 130;
+    object-position: -150px -117px;
+    width: 3000px; 
+    */
+
+    /* RUN */
+    /*     
+    divWidth = 100;
+    divHeight = 130;
+    object-position: -132px -117px;
+    width: 3000px; 
+    */
+
+    /* JUMP */
+    /*     
+    divWidth = 91;
+    divHeight = 130;
+    object-position: -140px -110px;
+    width: 728px
+    */
+    
+    /* ATTACK */
+    /*     
+    divWidth = 200;
+    divHeight = 170;
+    object-position: -140px -130px;
+    width: 1575px
+    */
+
     object-position: -150px -117px;
     width: 3000px;
     animation: moveSpriteSheet 1s steps(8) infinite;
@@ -97,8 +146,36 @@
 }
 
 #player2Sprite{
-    object-position: -67px -54px;
-    width: 1476px;
+    /* IDLE */
+    /*     
+    divWidth = 75;
+    divHeight = 130;
+    object-position: -65px -53px;
+    width: 1450px;
+    */
+    /* RUN */
+    /*     
+    divWidth = 120;
+    divHeight = 130;
+    object-position: -35px -53px;
+    width: 2000px; 
+    */
+    /* JUMP */
+    /*     
+    divWidth = 80;
+    divHeight = 130;
+    object-position: -65px -53px;
+    width: 490px;
+    */
+    /* ATTACK */
+    /*     
+    divWidth = 235;
+    divHeight = 130;
+    object-position: -5px -62px;
+    width: 250px;
+    */
+    object-position: -65px -53px;
+    width: 1450px;
     animation: moveSpriteSheet 1s steps(6) infinite;
     image-rendering: pixelated;
 }
@@ -117,7 +194,9 @@
     background-color: black;
 }
 
-
+.credit{
+    text-align: center;
+}
 
 body{
     margin: 0;

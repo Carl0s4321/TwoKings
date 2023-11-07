@@ -176,19 +176,24 @@ function decreaseTimer(){
     }
 }
 
-function displayPlayerSprite({player, playerSpriteSrc, steps}){
-    const playerImg = document.getElementById(player);
+function displayPlayerSprite({player, divWidth, divHeight, objectPos, imageWidth, playerImgId, playerSpriteSrc, steps}){
+    // CHECK IF STEPS IS PROPERLY CHANGED
+    player.width = divWidth;
+    player.height = divHeight;
+
+    const playerImg = document.getElementById(playerImgId);
+
+    playerImg.style.width = imageWidth + "px";
+
+    // Create the updated animation rule with the new steps value
+    const animationRule = `moveSpriteSheet 1s steps(${steps}) infinite`;
+
+    // Update the animation property of the element
+    playerImg.style.animation = animationRule;
+
+    playerImg.style.objectPosition = objectPos;
+
     playerImg.src = playerSpriteSrc;
-
-        // Get the existing animation properties
-    const playerProperties = getComputedStyle(playerImg).animation;
-    
-    // Modify the steps value
-    const modifiedPlayerProperties = playerProperties.replace(/steps\(\d+\)/, `steps(${steps})`);
-    
-    // Apply the modified animation properties
-    playerImg.style.animation = modifiedPlayerProperties;
-
 }
 
 // make animation loop
@@ -199,34 +204,38 @@ function animate(){
     player1.update();
     player2.update();
 
-    displayPlayerSprite({player: "player1Sprite", playerSpriteSrc: "./assets/player1/Idle.png", steps: 2});
-
+    displayPlayerSprite({player: player1, objectPos:"-150px -117px", imageWidth: 3000,divWidth: 75, divHeight: 130, playerImgId: "player1Sprite", playerSpriteSrc: "./assets/player1/Idle.png", steps: 8});
     player1.speed.x = 0
     if(keys.d.pressed){
         player1.speed.x = MOVEMENTSPEED;
-        displayPlayerSprite({player: "player1Sprite", playerSpriteSrc: "./assets/player1/Run.png", steps: 8});
+        displayPlayerSprite({player: player1, objectPos:"-132px -117px",imageWidth: 3000, divWidth: 100, divHeight: 130, playerImgId: "player1Sprite", playerSpriteSrc: "./assets/player1/Run.png", steps: 8});
     }
     else if(keys.a.pressed){
         player1.speed.x = -MOVEMENTSPEED;
-        displayPlayerSprite({player: "player1Sprite", playerSpriteSrc: "./assets/player1/Run.png", steps: 8});
+        displayPlayerSprite({player: player1, objectPos:"-132px -117px",imageWidth: 3000, divWidth: 100, divHeight: 130, playerImgId: "player1Sprite", playerSpriteSrc: "./assets/player1/Run.png", steps: 8});
     }
     else if(keys.w.pressed){
-        displayPlayerSprite({player: "player1Sprite", playerSpriteSrc: "./assets/player1/Jump.png", steps: 2});
+        displayPlayerSprite({player: player1, objectPos:"-140px -110px",imageWidth: 728, divWidth: 91, divHeight: 130, playerImgId: "player1Sprite", playerSpriteSrc: "./assets/player1/Jump.png", steps: 2});
+    }
+    else if(keys.space.pressed){
+        displayPlayerSprite({player: player1, objectPos:"-50px -75px",imageWidth: 250, divWidth: 180, divHeight: 130, playerImgId: "player1Sprite", playerSpriteSrc: "./assets/player1/Attack1Short.png", steps: 1});
     }
     
-    displayPlayerSprite({player: "player2Sprite", playerSpriteSrc: "./assets/player2/Idle.png", steps: 6});
+    displayPlayerSprite({player: player2, objectPos:"-65px -52px", imageWidth: 1450,divWidth: 75, divHeight: 130, playerImgId: "player2Sprite", playerSpriteSrc: "./assets/player2/Idle.png", steps: 6});
     player2.speed.x = 0 // to stop when no keys is pressed
     if(keys.arrowRight.pressed){
         player2.speed.x = MOVEMENTSPEED;
-        displayPlayerSprite({player: "player2Sprite", playerSpriteSrc: "./assets/player2/Run.png", steps: 8});
+        displayPlayerSprite({player: player2, objectPos:"-35px -53px", imageWidth: 2000,divWidth: 120, divHeight: 130, playerImgId: "player2Sprite", playerSpriteSrc: "./assets/player2/Run.png", steps: 8});
     }
     else if(keys.arrowLeft.pressed){
         player2.speed.x = -MOVEMENTSPEED;
-        displayPlayerSprite({player: "player2Sprite", playerSpriteSrc: "./assets/player2/Run.png", steps: 8});
+        displayPlayerSprite({player: player2, objectPos:"-35px -53px", imageWidth: 2000,divWidth: 120, divHeight: 130, playerImgId: "player2Sprite", playerSpriteSrc: "./assets/player2/Run.png", steps: 8});
     }
     else if(keys.arrowUp.pressed){
-
-        displayPlayerSprite({player: "player2Sprite", playerSpriteSrc: "./assets/player2/Jump.png", steps: 2});
+        displayPlayerSprite({player: player2, objectPos:"-65px -53px", imageWidth: 490,divWidth: 80, divHeight: 130, playerImgId: "player2Sprite", playerSpriteSrc: "./assets/player2/Jump.png", steps: 2});
+    }
+    else if(keys.backSlash.pressed){
+        displayPlayerSprite({player: player2, objectPos:"-5px -62px", imageWidth: 250,divWidth: 235, divHeight: 130, playerImgId: "player2Sprite", playerSpriteSrc: "./assets/player2/Attack_1Short.png", steps: 1});
     }
 
     if (checkCollision({object1: player1, object2: player2}) && player1.isAttacking){
