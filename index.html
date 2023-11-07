@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <audio id="swingAudio"><source src="./assets/sound/swing.mp3" type="audio/mpeg"></audio>
     <!-- TO DO: make it the ugly ass div more beautiful -->
     <div class="app">
         <div><h1>TWO KINGS</h1></div>
@@ -22,23 +23,23 @@
             <div class="gameElements">
                 <div class="ui">
                     <!-- p1 profile pic -->
-                    <div class="avatar"></div>
+                    <div class="avatar" id="p1Avatar"></div>
                     <!-- p1 health bar -->
                     <div class="healthBarPlaceholder">
                         <div class="healthBar"></div>
                         <div class="healthBarBg" id="player1Health"></div>
                     </div>
                     <!-- timer -->
-                    <div class="timer">10</div>
+                    <div class="timer"></div>
                      <!-- p2 health bar -->
                     <div class="healthBarPlaceholder">
                         <div class="healthBar" ></div>
                         <div class="healthBarBg" id="player2Health"></div>
                     </div>
                     <!-- p2 profile pic -->
-                    <div class="avatar"></div>
+                    <div class="avatar" id="p2Avatar"></div>
                 </div>
-                <div id="label">Tie</div>
+                <div id="label"></div>
                 <div id="playSpace">
                     <div class="player" id="player1">
                         <img id="player1Sprite" src="./assets/player1/Idle.png" alt="player1Sprite">
@@ -56,10 +57,11 @@
             <br>Player1 Sprite: https://luizmelo.itch.io/medieval-king-pack-2 by luizmelo
             <br>player2 Sprite: https://luizmelo.itch.io/medieval-king-pack by luizmelo
             <br>https://freesound.org/people/deleted_user_3656686/sounds/215160/
-            <br>https://freesound.org/people/sonically_sound/sounds/624644/
-            <br>https://freesound.org/people/dominictreis/sounds/558839/
+            <!-- <br>https://freesound.org/people/sonically_sound/sounds/624644/ -->
+            <!-- <br>https://freesound.org/people/dominictreis/sounds/558839/ -->
             <br>https://freesound.org/people/bennychico11/sounds/80438/
-            <br>https://freesound.org/people/SnowFightStudios/sounds/643671/
+            <br>https://freesound.org/people/klankbeeld/sounds/528353/
+            <!-- <br>https://freesound.org/people/SnowFightStudios/sounds/643671/ -->
         </div>
     </div>
     

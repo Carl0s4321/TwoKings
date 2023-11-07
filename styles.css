@@ -37,13 +37,29 @@
     width: 100%;
     align-items: center;
     padding: 20px;
+    z-index: 1;
 }
 
 .avatar{
-    background-color: aquamarine;
+    background-color: brown;
+    border-style: ridge;
+    border-color: gold;
+    border-width: 7px;
     height: 115px;
     width: 115px;
     flex-shrink: 0;
+}
+
+#p1Avatar{
+    background-image: url("./assets/player1/Avatar.png");
+    background-size: cover;
+    image-rendering: pixelated;
+}
+
+#p2Avatar{
+    background-image: url("./assets/player2/Avatar.png");
+    background-size: cover;
+    image-rendering: pixelated;
 }
 
 .healthBarPlaceholder{
@@ -59,7 +75,7 @@
 
 .healthBarBg{
     position: absolute; 
-    background: yellow;
+    background: red;
     top: 0;
     right: 0;
     bottom: 0;
@@ -76,6 +92,7 @@
     bottom: 0;
     right: 0;
     display: none;
+    font-size: 2rem;
 }
 
 #bgImg{
@@ -88,13 +105,18 @@
 }
 
 .timer{
-    background-color: cadetblue;
+    background-color: brown;
     height: 115px;
     width: 115px;
     flex-shrink: 0;
     display:flex;
     align-items: center;
     justify-content: center;
+    font-size: 2rem;
+    color: white;
+    border-style: ridge;
+    border-width: 7px;
+    border-color: gold;
 }
 
 .attackBox{

@@ -133,14 +133,14 @@ function declareWinner({player1, player2, timeId}){
     clearTimeout(timeId);
     document.querySelector('#label').style.display = 'flex';
     if (player1.health === player2.health){
-        document.querySelector("#label").innerHTML = 'Tie';
+        document.querySelector("#label").innerHTML = 'Tie!';
 
     }
     else if(player1.health > player2.health){
-        document.querySelector("#label").innerHTML = 'Player 1 Wins';
+        document.querySelector("#label").innerHTML = 'Player 1 Wins!';
     }
     else if(player1.health < player2.health){
-        document.querySelector("#label").innerHTML = 'Player 2 Wins';
+        document.querySelector("#label").innerHTML = 'Player 2 Wins!';
     }
 }
 
@@ -319,6 +319,9 @@ const keys = {
     },
 }
 
+const swingAudio = document.getElementById("swingAudio"); 
+
+
 window.addEventListener('keydown', (event) => {
     if (event.key == 'd'){
         keys.d.pressed = true;
@@ -339,6 +342,7 @@ window.addEventListener('keydown', (event) => {
         if(!keys.space.pressed){
             keys.space.pressed = true;
             player1.attack();
+            swingAudio.play();
         }
     }
 
@@ -361,6 +365,7 @@ window.addEventListener('keydown', (event) => {
         if(!keys.backSlash.pressed){
             keys.backSlash.pressed = true;
             player2.attack();
+            swingAudio.play();
         }
     }
 }) 
