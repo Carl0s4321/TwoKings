@@ -133,10 +133,10 @@
     
     /* ATTACK */
     /*     
-    divWidth = 200;
-    divHeight = 170;
-    object-position: -140px -130px;
-    width: 1575px
+    divWidth = 235;
+    divHeight = 130;
+    object-position: -71px -156px;
+    width: 350px
     */
 
     object-position: -150px -117px;
@@ -173,6 +173,13 @@
     divHeight = 130;
     object-position: -5px -62px;
     width: 250px;
+    */
+    /* HIT */
+    /*     
+    divWidth = 80;
+    divHeight = 130;
+    object-position: -70px -45px;
+    width: 907px;
     */
     object-position: -65px -53px;
     width: 1450px;

@@ -5,7 +5,7 @@
 /* UCID: 30143341 */
 
 const GRAVITY = 0.7;
-const ATTACKBOXWIDTH = 150;
+const ATTACKBOXWIDTH = 235;
 const ATTACKBOXHEIGHT = 50;
 const JUMPHEIGHT = -15;
 const MOVEMENTSPEED = 5;
@@ -16,36 +16,6 @@ const GAMETIME = 60;
 const playSpace = document.getElementById('playSpace');
 playSpace.style.width = `${PLAYSPACEWIDTH}px`;
 playSpace.style.height = `${PLAYSPACEHEIGHT}px`;
-
-// class Sprite{
-//     constructor({id, position, imageSrc}) { // {a,b} to keep arguments clean. Order doesn't matter
-//         this.element = document.getElementById(id);
-//         this.element.src = imageSrc;
-//         // this.image = new Image();
-//         // this.image.src = 
-
-//     }
-// }
-
-// const bgImg = new Sprite({
-//     id: 'bgImg',
-//     position: {
-//         x: 0,
-//         y: 0
-//     },
-//     imageSrc: "./assets/bg1.png"
-// })
-
-// function drawBg({id, imageSrc}){
-//     element = document.getElementById(id);
-//     element.src = imageSrc;
-// }
-
-// drawBg({
-//     id: 'bgImg',
-//     imageSrc: "./assets/bg1.png"
-// });
-
 
 class Player{
     constructor({id,attackBoxId, position, speed, color, offset}) { // {a,b} to keep arguments clean. Order doesn't matter
@@ -64,21 +34,24 @@ class Player{
             width: ATTACKBOXWIDTH,
             height: ATTACKBOXHEIGHT
         }
-        this.color = color;
+        this.color = color; //TESTING PURPOSE
         this.isAttacking;
         this.health = 100;
+        this.facingRight = null;
     }
 
     draw(){
         this.element.style.transform = `translate(${this.position.x}px, ${this.position.y}px)`;
         this.element.style.width = `${this.width}px`;
         this.element.style.height = `${this.height}px`;
+        // TESTING PURPOSE
         this.element.style.backgroundColor = `${this.color}`;
     
         if(this.isAttacking){
             this.attackBoxElement.style.transform = `translate(${this.attackBox.position.x}px, ${this.attackBox.position.y}px)`;
             this.attackBoxElement.style.width = `${this.attackBox.width}px`;
             this.attackBoxElement.style.height = `${this.attackBox.height}px`;
+            // TESTING PURPOSE
             this.attackBoxElement.style.backgroundColor = 'green';
         }
     }
@@ -204,7 +177,15 @@ function animate(){
     player1.update();
     player2.update();
 
-    displayPlayerSprite({player: player1, objectPos:"-150px -117px", imageWidth: 3000,divWidth: 75, divHeight: 130, playerImgId: "player1Sprite", playerSpriteSrc: "./assets/player1/Idle.png", steps: 8});
+    if(player1.facingRight || player1.facingRight === null){
+        displayPlayerSprite({player: player1, objectPos:"-150px -117px", imageWidth: 3000,divWidth: 75, divHeight: 130, playerImgId: "player1Sprite", playerSpriteSrc: "./assets/player1/Idle.png", steps: 8});
+        player1.facingRight = true;
+    }
+    else if(!player1.facingRight){
+        displayPlayerSprite({player: player1, objectPos:"-150px -117px", imageWidth: 3000,divWidth: 75, divHeight: 130, playerImgId: "player1Sprite", playerSpriteSrc: "./assets/player1/IdleL.png", steps: 8});
+        player1.facingRight = false;
+    }
+   
     player1.speed.x = 0
     if(keys.d.pressed){
         player1.speed.x = MOVEMENTSPEED;
@@ -212,16 +193,36 @@ function animate(){
     }
     else if(keys.a.pressed){
         player1.speed.x = -MOVEMENTSPEED;
-        displayPlayerSprite({player: player1, objectPos:"-132px -117px",imageWidth: 3000, divWidth: 100, divHeight: 130, playerImgId: "player1Sprite", playerSpriteSrc: "./assets/player1/Run.png", steps: 8});
+        displayPlayerSprite({player: player1, objectPos:"-132px -117px",imageWidth: 3000, divWidth: 100, divHeight: 130, playerImgId: "player1Sprite", playerSpriteSrc: "./assets/player1/RunL.png", steps: 8});
     }
     else if(keys.w.pressed){
-        displayPlayerSprite({player: player1, objectPos:"-140px -110px",imageWidth: 728, divWidth: 91, divHeight: 130, playerImgId: "player1Sprite", playerSpriteSrc: "./assets/player1/Jump.png", steps: 2});
+        if(player1.facingRight){
+            displayPlayerSprite({player: player1, objectPos:"-140px -110px",imageWidth: 728, divWidth: 91, divHeight: 130, playerImgId: "player1Sprite", playerSpriteSrc: "./assets/player1/Jump.png", steps: 2});   
+        }
+        else if(!player1.facingRight){
+            displayPlayerSprite({player: player1, objectPos:"-140px -110px",imageWidth: 728, divWidth: 91, divHeight: 130, playerImgId: "player1Sprite", playerSpriteSrc: "./assets/player1/JumpL.png", steps: 2});    
+        }
     }
     else if(keys.space.pressed){
-        displayPlayerSprite({player: player1, objectPos:"-50px -75px",imageWidth: 250, divWidth: 180, divHeight: 130, playerImgId: "player1Sprite", playerSpriteSrc: "./assets/player1/Attack1Short.png", steps: 1});
+        if(player1.facingRight){
+            displayPlayerSprite({player: player1, objectPos:"-71px -156px",imageWidth: 350, divWidth: 235, divHeight: 130, playerImgId: "player1Sprite", playerSpriteSrc: "./assets/player1/Attack1Short.png", steps: 1});
+        }
+        else if(!player1.facingRight){
+            displayPlayerSprite({player: player1, objectPos:"-45px -156px",imageWidth: 350, divWidth: 235, divHeight: 130, playerImgId: "player1Sprite", playerSpriteSrc: "./assets/player1/Attack1ShortL.png", steps: 1});
+        }
+        
     }
     
-    displayPlayerSprite({player: player2, objectPos:"-65px -52px", imageWidth: 1450,divWidth: 75, divHeight: 130, playerImgId: "player2Sprite", playerSpriteSrc: "./assets/player2/Idle.png", steps: 6});
+
+    if(!player2.facingRight || player2.facingRight === null){
+        displayPlayerSprite({player: player2, objectPos:"-100px -52px", imageWidth: 1450,divWidth: 75, divHeight: 130, playerImgId: "player2Sprite", playerSpriteSrc: "./assets/player2/IdleL.png", steps: 6});
+        player2.facingRight = false;
+    }
+    else if(player2.facingRight){
+        displayPlayerSprite({player: player2, objectPos:"-65px -52px", imageWidth: 1450,divWidth: 75, divHeight: 130, playerImgId: "player2Sprite", playerSpriteSrc: "./assets/player2/Idle.png", steps: 6});
+        player2.facingRight = true;
+    }
+
     player2.speed.x = 0 // to stop when no keys is pressed
     if(keys.arrowRight.pressed){
         player2.speed.x = MOVEMENTSPEED;
@@ -229,27 +230,38 @@ function animate(){
     }
     else if(keys.arrowLeft.pressed){
         player2.speed.x = -MOVEMENTSPEED;
-        displayPlayerSprite({player: player2, objectPos:"-35px -53px", imageWidth: 2000,divWidth: 120, divHeight: 130, playerImgId: "player2Sprite", playerSpriteSrc: "./assets/player2/Run.png", steps: 8});
+        displayPlayerSprite({player: player2, objectPos:"-100px -53px", imageWidth: 2000,divWidth: 120, divHeight: 130, playerImgId: "player2Sprite", playerSpriteSrc: "./assets/player2/RunL.png", steps: 8});
     }
     else if(keys.arrowUp.pressed){
-        displayPlayerSprite({player: player2, objectPos:"-65px -53px", imageWidth: 490,divWidth: 80, divHeight: 130, playerImgId: "player2Sprite", playerSpriteSrc: "./assets/player2/Jump.png", steps: 2});
-    }
+        if(player2.facingRight){
+            displayPlayerSprite({player: player2, objectPos:"-65px -53px", imageWidth: 490,divWidth: 80, divHeight: 130, playerImgId: "player2Sprite", playerSpriteSrc: "./assets/player2/Jump.png", steps: 2});
+        }
+        else if(!player2.facingRight){
+            displayPlayerSprite({player: player2, objectPos:"-100px -53px", imageWidth: 490,divWidth: 80, divHeight: 130, playerImgId: "player2Sprite", playerSpriteSrc: "./assets/player2/JumpL.png", steps: 2});
+        }
+       }
     else if(keys.backSlash.pressed){
-        displayPlayerSprite({player: player2, objectPos:"-5px -62px", imageWidth: 250,divWidth: 235, divHeight: 130, playerImgId: "player2Sprite", playerSpriteSrc: "./assets/player2/Attack_1Short.png", steps: 1});
+        if(player2.facingRight){
+            displayPlayerSprite({player: player2, objectPos:"-5px -62px", imageWidth: 250,divWidth: 235, divHeight: 130, playerImgId: "player2Sprite", playerSpriteSrc: "./assets/player2/Attack_1Short.png", steps: 1});
+        }
+        else if(!player2.facingRight){
+            displayPlayerSprite({player: player2, objectPos:"-5px -62px", imageWidth: 250,divWidth: 235, divHeight: 130, playerImgId: "player2Sprite", playerSpriteSrc: "./assets/player2/Attack_1ShortL.png", steps: 1});
+        }
     }
 
+    // Player 2 hit
     if (checkCollision({object1: player1, object2: player2}) && player1.isAttacking){
         player1.isAttacking = false;
         player2.health  -= 20;
         document.querySelector('#player2Health').style.width = player2.health + '%';
-        console.log("hi");
+        displayPlayerSprite({player: player2, objectPos:"-70px -45px", imageWidth: 907,divWidth: 80, divHeight: 130, playerImgId: "player2Sprite", playerSpriteSrc: "./assets/player2/Hit.png", steps: 4});
     }
 
+    // Player 1 hit
     if (checkCollision({object1: player2, object2: player1}) && player2.isAttacking){
         player2.isAttacking = false;
         player1.health  -= 20;
         document.querySelector('#player1Health').style.width = player1.health + '%';
-        console.log("ih");
     }
 
     if(player1.health <= 0 || player2.health <= 0){
@@ -347,9 +359,11 @@ window.addEventListener('keydown', (event) => {
 window.addEventListener('keyup', (event) => {
     if (event.key == 'd'){
         keys.d.pressed = false;
+        player1.facingRight = true;
     }
     else if (event.key == 'a'){
         keys.a.pressed = false;
+        player1.facingRight = false;
     }
     else if (event.key == 'w'){
         keys.w.pressed = false;
@@ -361,9 +375,11 @@ window.addEventListener('keyup', (event) => {
 
     else if (event.key == 'ArrowRight'){
         keys.arrowRight.pressed = false;
+        player2.facingRight = true;
     }
     else if (event.key == 'ArrowLeft'){
         keys.arrowLeft.pressed = false;
+        player2.facingRight = false;
     }
     else if (event.key == 'ArrowUp'){
         keys.arrowUp.pressed = false;
