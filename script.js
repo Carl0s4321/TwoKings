@@ -17,6 +17,15 @@ const playSpace = document.getElementById('playSpace');
 playSpace.style.width = `${PLAYSPACEWIDTH}px`;
 playSpace.style.height = `${PLAYSPACEHEIGHT}px`;
 
+
+const swingAudio = document.getElementById("swingAudio"); // sword swing
+const grunt1Audio = document.getElementById("grunt1"); // grunt1Audio 
+const grunt2Audio = document.getElementById("grunt2"); // grunt2Audio 
+
+
+
+
+
 class Player{
     constructor({id,attackBoxId, position, speed, color, offset}) { // {a,b} to keep arguments clean. Order doesn't matter
         this.id = id;
@@ -291,6 +300,7 @@ function animate(){
         player1.isAttacking = false;
         player2.health  -= 20;
         document.querySelector('#player2Health').style.width = player2.health + '%';
+        grunt2Audio.play();
         //play hit animation
         // displayPlayerSprite({player: player2, objectPos:"-70px -45px", imageWidth: 907,divWidth: 80, divHeight: 130, playerImgId: "player2Sprite", playerSpriteSrc: "./assets/player2/Hit.png", steps: 4});
     }
@@ -300,6 +310,7 @@ function animate(){
         player2.isAttacking = false;
         player1.health  -= 20;
         document.querySelector('#player1Health').style.width = player1.health + '%';
+        grunt1Audio.play();
         //play hit animation
     }
 
@@ -349,59 +360,61 @@ const keys = {
     },
 }
 
-// sword swing
-const swingAudio = document.getElementById("swingAudio"); 
-
 
 window.addEventListener('keydown', (event) => {
-    if (event.key == 'd'){
-        keys.d.pressed = true;
-        player1.attackBox.offset.x = 0; 
-    }
-    else if (event.key == 'a'){
-        keys.a.pressed = true;
-        player1.attackBox.offset.x = -(ATTACKBOXWIDTH/1.5);
-    }
-    else if (event.key == 'w'){
-        // to stop spamming down w
-        if(!keys.w.pressed){
-            keys.w.pressed = true;
-            player1.speed.y = JUMPHEIGHT;
+    // player can only move while alive
+    if(player1.health > 0){
+        if (event.key == 'd'){
+            keys.d.pressed = true;
+            player1.attackBox.offset.x = 0; 
+        }
+        else if (event.key == 'a'){
+            keys.a.pressed = true;
+            player1.attackBox.offset.x = -(ATTACKBOXWIDTH/1.5);
+        }
+        else if (event.key == 'w'){
+            // to stop spamming down w
+            if(!keys.w.pressed){
+                keys.w.pressed = true;
+                player1.speed.y = JUMPHEIGHT;
+            }
+        }
+        else if (event.key == ' '){
+            // to stop spamming down space
+            if(!keys.space.pressed){
+                keys.space.pressed = true;
+                player1.attack();
+                swingAudio.play();
+            }
         }
     }
-    else if (event.key == ' '){
-        // to stop spamming down space
-        if(!keys.space.pressed){
-            keys.space.pressed = true;
-            player1.attack();
-            swingAudio.play();
+    // player can only move while alive
+    if(player2.health > 0){
+        if (event.key == 'ArrowRight'){
+            keys.arrowRight.pressed = true;
+            player2.attackBox.offset.x = 0; 
+        }
+        else if (event.key == 'ArrowLeft'){
+            keys.arrowLeft.pressed = true;
+            player2.attackBox.offset.x = -(ATTACKBOXWIDTH/1.5);
+        }
+        else if (event.key == 'ArrowUp'){
+            // to stop spamming down arrow up
+            if(!keys.arrowUp.pressed){
+                keys.arrowUp.pressed = true;
+                player2.speed.y = JUMPHEIGHT;
+            }
+        }
+        else if (event.key == '\\'){
+            // to stop spamming down \
+            if(!keys.backSlash.pressed){
+                keys.backSlash.pressed = true;
+                player2.attack();
+                swingAudio.play();
+            }
         }
     }
-
-
-    else if (event.key == 'ArrowRight'){
-        keys.arrowRight.pressed = true;
-        player2.attackBox.offset.x = 0; 
-    }
-    else if (event.key == 'ArrowLeft'){
-        keys.arrowLeft.pressed = true;
-        player2.attackBox.offset.x = -(ATTACKBOXWIDTH/1.5);
-    }
-    else if (event.key == 'ArrowUp'){
-        // to stop spamming down arrow up
-        if(!keys.arrowUp.pressed){
-            keys.arrowUp.pressed = true;
-            player2.speed.y = JUMPHEIGHT;
-        }
-    }
-    else if (event.key == '\\'){
-        // to stop spamming down \
-        if(!keys.backSlash.pressed){
-            keys.backSlash.pressed = true;
-            player2.attack();
-            swingAudio.play();
-        }
-    }
+    
 }) 
 
 window.addEventListener('keyup', (event) => {
