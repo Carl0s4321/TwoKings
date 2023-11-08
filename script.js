@@ -24,6 +24,7 @@ class Player{
         this.attackBoxElement = document.getElementById(attackBoxId);
         this.position = position;
         this.speed = speed;
+        // DIMENSIONS OF PLAYER
         this.width = 75;
         this.height = 130;
         this.attackBox = {
@@ -38,14 +39,18 @@ class Player{
         // this.color = color; //TESTING PURPOSE
         this.isAttacking;
         this.health = 100;
-        this.facingRight = null;
+        this.facingRight = null; // FOR ANIMATION
     }
 
+    // TO MOVE THE DIVS (PLAYER AND ATTACK BOXES)
     draw(){
-        if(!this.facingRight && this.id === 'player1' && this.isAttacking){
+        // PLAYER1 FACING LEFT WHILE ATTACKING (OFFSET OF 150PX)
+        if(!this.facingRight && this.id === 'player1' && keys.space.pressed){
             this.element.style.transform = `translate(${this.position.x - 150}px, ${this.position.y}px)`;
         }
-        else if(!this.facingRight && this.id === 'player2' && this.isAttacking){
+        // PLAYER2 FACING LEFT WHILE ATTACKING (OFFSET OF 150PX)
+        // change keys.backslash.pressed to this.isAttacking if want to fix multiple key pressing bug, but animation is weird
+        else if(!this.facingRight && this.id === 'player2' && keys.backSlash.pressed){ 
             this.element.style.transform = `translate(${this.position.x - 150}px, ${this.position.y}px)`;
         }
         else{
@@ -54,14 +59,14 @@ class Player{
         this.element.style.width = `${this.width}px`;
         this.element.style.height = `${this.height}px`;
         // TESTING PURPOSE
-        this.element.style.backgroundColor = `${this.color}`;
+        // this.element.style.backgroundColor = `${this.color}`;
     
         if(this.isAttacking){
             this.attackBoxElement.style.transform = `translate(${this.attackBox.position.x}px, ${this.attackBox.position.y}px)`;
             this.attackBoxElement.style.width = `${this.attackBox.width}px`;
             this.attackBoxElement.style.height = `${this.attackBox.height}px`;
             // TESTING PURPOSE
-            // this.attackBoxElement.style.backgroundColor = 'green';
+            this.attackBoxElement.style.backgroundColor = 'green';
         }
     }
 
@@ -71,8 +76,10 @@ class Player{
         this.attackBox.position.y = this.position.y;
         this.attackBox.position.x = this.position.x + this.attackBox.offset.x;
         
+        // updating positions of the player
         this.position.x += this.speed.x;
         this.position.y += this.speed.y;
+        // player can't jump outside the playspace
         if(this.position.y + this.height + this.speed.y >= PLAYSPACEHEIGHT - 89){
             this.speed.y = 0;
         } 
@@ -81,7 +88,7 @@ class Player{
             this.speed.y += GRAVITY;
         }
         else{
-            this.speed.y += GRAVITY;
+            this.speed.y += GRAVITY; // player fall
         }
     }
 
@@ -159,7 +166,6 @@ function decreaseTimer(){
 }
 
 function displayPlayerSprite({player, divWidth, divHeight, objectPos, imageWidth, playerImgId, playerSpriteSrc, steps}){
-    // CHECK IF STEPS IS PROPERLY CHANGED
     player.width = divWidth;
     player.height = divHeight;
 
@@ -181,27 +187,38 @@ function displayPlayerSprite({player, divWidth, divHeight, objectPos, imageWidth
 // make animation loop
 function animate(){
     window.requestAnimationFrame(animate) // call animate function frame by frame
-    playSpace.style.width = `${PLAYSPACEWIDTH}px`;
-    playSpace.style.height = `${PLAYSPACEHEIGHT}px`;
     player1.update();
     player2.update();
 
+    // player1 facing right by default
     if(player1.facingRight || player1.facingRight === null){
         displayPlayerSprite({player: player1, objectPos:"-150px -117px", imageWidth: 3000,divWidth: 75, divHeight: 130, playerImgId: "player1Sprite", playerSpriteSrc: "./assets/player1/Idle.png", steps: 8});
         player1.facingRight = true;
     }
+    // player1 facing left
     else if(!player1.facingRight){
         displayPlayerSprite({player: player1, objectPos:"-150px -117px", imageWidth: 3000,divWidth: 75, divHeight: 130, playerImgId: "player1Sprite", playerSpriteSrc: "./assets/player1/IdleL.png", steps: 8});
         player1.facingRight = false;
     }
    
-    player1.speed.x = 0
+    player1.speed.x = 0 // to stop when no keys is pressed
+
     if(keys.d.pressed){
-        player1.speed.x = MOVEMENTSPEED;
+        // player cant go outside playspace
+        if(player1.position.x + player1.width + player1.speed.x >= PLAYSPACEWIDTH){
+            player1.speed.x = 0;
+        }else{
+            player1.speed.x = MOVEMENTSPEED;
+        }
         displayPlayerSprite({player: player1, objectPos:"-132px -117px",imageWidth: 3000, divWidth: 100, divHeight: 130, playerImgId: "player1Sprite", playerSpriteSrc: "./assets/player1/Run.png", steps: 8});
     }
     else if(keys.a.pressed){
-        player1.speed.x = -MOVEMENTSPEED;
+        // player cant go outside playspace
+        if(player1.position.x - player1.speed.x <= 0){
+            player1.speed.x = 0;
+        }else{
+            player1.speed.x = -MOVEMENTSPEED;
+        }
         displayPlayerSprite({player: player1, objectPos:"-132px -117px",imageWidth: 3000, divWidth: 100, divHeight: 130, playerImgId: "player1Sprite", playerSpriteSrc: "./assets/player1/RunL.png", steps: 8});
     }
     else if(keys.w.pressed){
@@ -222,11 +239,12 @@ function animate(){
         
     }
     
-
+    // player2 facing left by default
     if(!player2.facingRight || player2.facingRight === null){
         displayPlayerSprite({player: player2, objectPos:"-100px -52px", imageWidth: 1450,divWidth: 75, divHeight: 130, playerImgId: "player2Sprite", playerSpriteSrc: "./assets/player2/IdleL.png", steps: 6});
         player2.facingRight = false;
     }
+    // player2 facing right
     else if(player2.facingRight){
         displayPlayerSprite({player: player2, objectPos:"-65px -52px", imageWidth: 1450,divWidth: 75, divHeight: 130, playerImgId: "player2Sprite", playerSpriteSrc: "./assets/player2/Idle.png", steps: 6});
         player2.facingRight = true;
@@ -234,11 +252,21 @@ function animate(){
 
     player2.speed.x = 0 // to stop when no keys is pressed
     if(keys.arrowRight.pressed){
-        player2.speed.x = MOVEMENTSPEED;
+        // player cant go outside playspace
+        if(player2.position.x + player2.width + player2.speed.x >= PLAYSPACEWIDTH){
+            player2.speed.x = 0;
+        }else{
+            player2.speed.x = MOVEMENTSPEED;
+        }
         displayPlayerSprite({player: player2, objectPos:"-35px -53px", imageWidth: 2000,divWidth: 120, divHeight: 130, playerImgId: "player2Sprite", playerSpriteSrc: "./assets/player2/Run.png", steps: 8});
     }
     else if(keys.arrowLeft.pressed){
-        player2.speed.x = -MOVEMENTSPEED;
+        // player cant go outside playspace
+        if(player2.position.x - player2.speed.x <= 0){
+            player2.speed.x = 0;
+        }else{
+            player2.speed.x = -MOVEMENTSPEED;
+        }
         displayPlayerSprite({player: player2, objectPos:"-100px -53px", imageWidth: 2000,divWidth: 120, divHeight: 130, playerImgId: "player2Sprite", playerSpriteSrc: "./assets/player2/RunL.png", steps: 8});
     }
     else if(keys.arrowUp.pressed){
@@ -263,7 +291,8 @@ function animate(){
         player1.isAttacking = false;
         player2.health  -= 20;
         document.querySelector('#player2Health').style.width = player2.health + '%';
-        displayPlayerSprite({player: player2, objectPos:"-70px -45px", imageWidth: 907,divWidth: 80, divHeight: 130, playerImgId: "player2Sprite", playerSpriteSrc: "./assets/player2/Hit.png", steps: 4});
+        //play hit animation
+        // displayPlayerSprite({player: player2, objectPos:"-70px -45px", imageWidth: 907,divWidth: 80, divHeight: 130, playerImgId: "player2Sprite", playerSpriteSrc: "./assets/player2/Hit.png", steps: 4});
     }
 
     // Player 1 hit
@@ -271,6 +300,7 @@ function animate(){
         player2.isAttacking = false;
         player1.health  -= 20;
         document.querySelector('#player1Health').style.width = player1.health + '%';
+        //play hit animation
     }
 
     if(player1.health <= 0 || player2.health <= 0){
@@ -319,6 +349,7 @@ const keys = {
     },
 }
 
+// sword swing
 const swingAudio = document.getElementById("swingAudio"); 
 
 
@@ -339,6 +370,7 @@ window.addEventListener('keydown', (event) => {
         }
     }
     else if (event.key == ' '){
+        // to stop spamming down space
         if(!keys.space.pressed){
             keys.space.pressed = true;
             player1.attack();
@@ -356,12 +388,14 @@ window.addEventListener('keydown', (event) => {
         player2.attackBox.offset.x = -(ATTACKBOXWIDTH/1.5);
     }
     else if (event.key == 'ArrowUp'){
+        // to stop spamming down arrow up
         if(!keys.arrowUp.pressed){
             keys.arrowUp.pressed = true;
             player2.speed.y = JUMPHEIGHT;
         }
     }
     else if (event.key == '\\'){
+        // to stop spamming down \
         if(!keys.backSlash.pressed){
             keys.backSlash.pressed = true;
             player2.attack();
