@@ -1,0 +1,6 @@
+- I learned how to plan for a project, how everything is going to go will help understanding implementation of the whole program and functions
+- I learned how to use sprite sheets for displaying animations
+- I learned how to implement css properties with javascript
+- I had a problem trying to change "steps" property from "animation: moveSpriteSheet 1s steps(6) infinite;" in css, the way I overcome it is I just had the full string inserted to a css from javascript instead of just changing the "steps" property alone. 
+- I used help from ChatGPT to solve the problem above. I asked my TA first about the problem but he couldn't figure it out as my code was perfectly straight forward but for some reason is not working. Then I asked ChatGPT about the problem and it suggested to change the whole property instead of just "steps" property, which I didn't think to do. I learned that using AI helps you if you use it as a tool to learn, not for an easy way out.
+- Overall I'm happy with my final product as it is closely resembles what I had in mind from the initial design.
