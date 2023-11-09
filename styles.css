@@ -9,27 +9,48 @@
 }
 
 .app{
+    color: tan;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .app h1{
-    font-size: 3em;
+    font-size: 5em;
     margin-bottom: 0px;
 }
 
 .app p{
     margin: 5px;
-    font-size: 1.5em;
+    font-size: 2em;
+}
+
+.app button{
+    margin: 100px;
+    background-color: tan;
+    color:rgb(90, 72, 50);
+    width: 500px;
+    height: 65px;
+    font-size: 2em;
+    font-family: 'Times New Roman', Times, serif;
+    border-radius: 10px;
+}
+
+.app button:hover{
+    background-color: rgb(90, 72, 50);
+    color: tan;
 }
 
 .game{
     position: relative;
-    display: inline-block;
+    display: none;
     overflow: hidden;
-    margin: 10px;
+    margin: 20px;
+    border-width: 7px;
+    border-color: tan;
+    border-style: ridge;
 }
+
 
 .ui{
     position: absolute;
@@ -105,8 +126,8 @@
 }
 
 .timer{
-    background-color: brown;
-    height: 115px;
+    background-color: rgb(87, 15, 15);
+    height: 85px;
     width: 115px;
     flex-shrink: 0;
     display:flex;
@@ -121,6 +142,7 @@
 
 .attackBox{
     position: absolute;
+    opacity: 50%;
 }
 
 .player{
@@ -223,11 +245,59 @@
     background-color: black;
 }
 
-.credit{
+.credit p{
+    margin-top: 100px;
     text-align: center;
+    font-size: 1rem;
 }
+
+.controlBox1{
+    display: flex;
+    flex-direction: row;
+    gap:20vw;
+    align-items: center;
+}
+
+.controlBox3{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: center;
+
+}
+
+.controlBox2{
+    margin-top:30px;
+    display:flex;
+    flex-direction: column;
+    gap:10px;
+}
+
+.controlTitle{
+    font-size: 2rem;
+    text-align: center;
+
+}
+
+.rectangles{
+    display: flex;
+    width: 75px;
+    height:75px;
+    border-radius: 10px;
+    background-color: tan;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: rgb(90, 72, 50);
+}
+.attack{
+    background-color: rgb(203, 153, 89);
+    color: rgb(66, 50, 30);
+}
+
 
 body{
     margin: 0;
     padding: 0;
+    background-color: rgb(21, 24, 38)
 }

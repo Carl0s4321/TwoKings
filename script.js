@@ -5,13 +5,13 @@
 /* UCID: 30143341 */
 
 const GRAVITY = 0.7;
-const ATTACKBOXWIDTH = 235;
-const ATTACKBOXHEIGHT = 50;
+const ATTACKBOXWIDTH = 125;
+const ATTACKBOXHEIGHT = 130;
 const JUMPHEIGHT = -15;
 const MOVEMENTSPEED = 5;
 const PLAYSPACEWIDTH = 1280;
 const PLAYSPACEHEIGHT = 640;
-const GAMETIME = 60;
+const GAMETIME = 10;
 
 const playSpace = document.getElementById('playSpace');
 playSpace.style.width = `${PLAYSPACEWIDTH}px`;
@@ -21,10 +21,8 @@ playSpace.style.height = `${PLAYSPACEHEIGHT}px`;
 const swingAudio = document.getElementById("swingAudio"); // sword swing
 const grunt1Audio = document.getElementById("grunt1"); // grunt1Audio 
 const grunt2Audio = document.getElementById("grunt2"); // grunt2Audio 
-
-
-
-
+const ambientAudio = document.getElementById("ambientAudio"); // grunt2Audio 
+const startGameAudio = document.getElementById("startEndGameAudio"); // grunt2Audio 
 
 class Player{
     constructor({id,attackBoxId, position, speed, color, offset}) { // {a,b} to keep arguments clean. Order doesn't matter
@@ -45,7 +43,7 @@ class Player{
             width: ATTACKBOXWIDTH,
             height: ATTACKBOXHEIGHT
         }
-        // this.color = color; //TESTING PURPOSE
+        this.color = color; //TESTING PURPOSE
         this.isAttacking;
         this.health = 100;
         this.facingRight = null; // FOR ANIMATION
@@ -54,12 +52,12 @@ class Player{
     // TO MOVE THE DIVS (PLAYER AND ATTACK BOXES)
     draw(){
         // PLAYER1 FACING LEFT WHILE ATTACKING (OFFSET OF 150PX)
-        if(!this.facingRight && this.id === 'player1' && keys.space.pressed){
+        if(!this.facingRight && this.id === 'player1' && keys.c.pressed){
             this.element.style.transform = `translate(${this.position.x - 150}px, ${this.position.y}px)`;
         }
         // PLAYER2 FACING LEFT WHILE ATTACKING (OFFSET OF 150PX)
-        // change keys.backslash.pressed to this.isAttacking if want to fix multiple key pressing bug, but animation is weird
-        else if(!this.facingRight && this.id === 'player2' && keys.backSlash.pressed){ 
+        // change keys.n.pressed to this.isAttacking if want to fix multiple key pressing bug, but animation is weird
+        else if(!this.facingRight && this.id === 'player2' && keys.n.pressed){ 
             this.element.style.transform = `translate(${this.position.x - 150}px, ${this.position.y}px)`;
         }
         else{
@@ -68,7 +66,7 @@ class Player{
         this.element.style.width = `${this.width}px`;
         this.element.style.height = `${this.height}px`;
         // TESTING PURPOSE
-        // this.element.style.backgroundColor = `${this.color}`;
+        this.element.style.backgroundColor = `${this.color}`;
     
         if(this.isAttacking){
             this.attackBoxElement.style.transform = `translate(${this.attackBox.position.x}px, ${this.attackBox.position.y}px)`;
@@ -121,7 +119,7 @@ const player1 = new Player({
         y:0
     },
     offset:{
-        x: 0,
+        x: (ATTACKBOXWIDTH/2),
         y:0
     },
     color: 'blue'
@@ -160,8 +158,7 @@ function declareWinner({player1, player2, timeId}){
     }
 }
 
-let time = GAMETIME;
-let timeId; // to stop decreaseTimer() being called after game is done
+
 function decreaseTimer(){
     if(time > 0){
         timeId = setTimeout(decreaseTimer, 1000);
@@ -238,7 +235,7 @@ function animate(){
             displayPlayerSprite({player: player1, objectPos:"-140px -110px",imageWidth: 728, divWidth: 91, divHeight: 130, playerImgId: "player1Sprite", playerSpriteSrc: "./assets/player1/JumpL.png", steps: 2});    
         }
     }
-    else if(keys.space.pressed){
+    else if(keys.c.pressed){
         if(player1.facingRight){
             displayPlayerSprite({player: player1, objectPos:"-71px -156px",imageWidth: 350, divWidth: 235, divHeight: 130, playerImgId: "player1Sprite", playerSpriteSrc: "./assets/player1/Attack1Short.png", steps: 1});
         }
@@ -260,7 +257,7 @@ function animate(){
     }
 
     player2.speed.x = 0 // to stop when no keys is pressed
-    if(keys.arrowRight.pressed){
+    if(keys.l.pressed){
         // player cant go outside playspace
         if(player2.position.x + player2.width + player2.speed.x >= PLAYSPACEWIDTH){
             player2.speed.x = 0;
@@ -269,7 +266,7 @@ function animate(){
         }
         displayPlayerSprite({player: player2, objectPos:"-35px -53px", imageWidth: 2000,divWidth: 120, divHeight: 130, playerImgId: "player2Sprite", playerSpriteSrc: "./assets/player2/Run.png", steps: 8});
     }
-    else if(keys.arrowLeft.pressed){
+    else if(keys.j.pressed){
         // player cant go outside playspace
         if(player2.position.x - player2.speed.x <= 0){
             player2.speed.x = 0;
@@ -278,7 +275,7 @@ function animate(){
         }
         displayPlayerSprite({player: player2, objectPos:"-100px -53px", imageWidth: 2000,divWidth: 120, divHeight: 130, playerImgId: "player2Sprite", playerSpriteSrc: "./assets/player2/RunL.png", steps: 8});
     }
-    else if(keys.arrowUp.pressed){
+    else if(keys.i.pressed){
         if(player2.facingRight){
             displayPlayerSprite({player: player2, objectPos:"-65px -53px", imageWidth: 490,divWidth: 80, divHeight: 130, playerImgId: "player2Sprite", playerSpriteSrc: "./assets/player2/Jump.png", steps: 2});
         }
@@ -286,7 +283,7 @@ function animate(){
             displayPlayerSprite({player: player2, objectPos:"-100px -53px", imageWidth: 490,divWidth: 80, divHeight: 130, playerImgId: "player2Sprite", playerSpriteSrc: "./assets/player2/JumpL.png", steps: 2});
         }
        }
-    else if(keys.backSlash.pressed){
+    else if(keys.n.pressed){
         if(player2.facingRight){
             displayPlayerSprite({player: player2, objectPos:"-5px -62px", imageWidth: 250,divWidth: 235, divHeight: 130, playerImgId: "player2Sprite", playerSpriteSrc: "./assets/player2/Attack_1Short.png", steps: 1});
         }
@@ -342,20 +339,20 @@ const keys = {
     w: {
         pressed: false
     },
-    space: {
+    c: {
         pressed: false
     },
 
-    arrowLeft: {
+    j: {
         pressed: false
     },
-    arrowRight: {
+    l: {
         pressed: false
     },
-    arrowUp: {
+    i: {
         pressed: false
     },
-    backSlash: {
+    n: {
         pressed: false
     },
 }
@@ -366,11 +363,11 @@ window.addEventListener('keydown', (event) => {
     if(player1.health > 0){
         if (event.key == 'd'){
             keys.d.pressed = true;
-            player1.attackBox.offset.x = 0; 
+            player1.attackBox.offset.x = player1.width + 35 ; 
         }
         else if (event.key == 'a'){
             keys.a.pressed = true;
-            player1.attackBox.offset.x = -(ATTACKBOXWIDTH/1.5);
+            player1.attackBox.offset.x = -(ATTACKBOXWIDTH + 25);
         }
         else if (event.key == 'w'){
             // to stop spamming down w
@@ -379,10 +376,10 @@ window.addEventListener('keydown', (event) => {
                 player1.speed.y = JUMPHEIGHT;
             }
         }
-        else if (event.key == ' '){
-            // to stop spamming down space
-            if(!keys.space.pressed){
-                keys.space.pressed = true;
+        else if (event.key == 'c'){
+            // to stop spamming down attack
+            if(!keys.c.pressed){
+                keys.c.pressed = true;
                 player1.attack();
                 swingAudio.play();
             }
@@ -390,25 +387,25 @@ window.addEventListener('keydown', (event) => {
     }
     // player can only move while alive
     if(player2.health > 0){
-        if (event.key == 'ArrowRight'){
-            keys.arrowRight.pressed = true;
+        if (event.key == 'l'){
+            keys.l.pressed = true;
             player2.attackBox.offset.x = 0; 
         }
-        else if (event.key == 'ArrowLeft'){
-            keys.arrowLeft.pressed = true;
+        else if (event.key == 'j'){
+            keys.j.pressed = true;
             player2.attackBox.offset.x = -(ATTACKBOXWIDTH/1.5);
         }
-        else if (event.key == 'ArrowUp'){
-            // to stop spamming down arrow up
-            if(!keys.arrowUp.pressed){
-                keys.arrowUp.pressed = true;
+        else if (event.key == 'i'){
+            // to stop spamming down jump
+            if(!keys.i.pressed){
+                keys.i.pressed = true;
                 player2.speed.y = JUMPHEIGHT;
             }
         }
-        else if (event.key == '\\'){
-            // to stop spamming down \
-            if(!keys.backSlash.pressed){
-                keys.backSlash.pressed = true;
+        else if (event.key == 'n'){
+            // to stop spamming down attack
+            if(!keys.n.pressed){
+                keys.n.pressed = true;
                 player2.attack();
                 swingAudio.play();
             }
@@ -429,29 +426,55 @@ window.addEventListener('keyup', (event) => {
     else if (event.key == 'w'){
         keys.w.pressed = false;
     }
-    else if (event.key == " "){
-        keys.space.pressed = false;
+    else if (event.key == "c"){
+        keys.c.pressed = false;
         player1.isAttacking = false;
     }
 
 
-    else if (event.key == 'ArrowRight'){
-        keys.arrowRight.pressed = false;
+    else if (event.key == 'l'){
+        keys.l.pressed = false;
         player2.facingRight = true;
     }
-    else if (event.key == 'ArrowLeft'){
-        keys.arrowLeft.pressed = false;
+    else if (event.key == 'j'){
+        keys.j.pressed = false;
         player2.facingRight = false;
     }
-    else if (event.key == 'ArrowUp'){
-        keys.arrowUp.pressed = false;
+    else if (event.key == 'i'){
+        keys.i.pressed = false;
     }
-    else if (event.key == '\\'){
-        keys.backSlash.pressed = false;
+    else if (event.key == 'n'){
+        keys.n.pressed = false;
         player2.isAttacking = false;
     }
 }) 
 
+let time = GAMETIME;
+let timeId; // to stop decreaseTimer() being called after game is done
 
-decreaseTimer();
-animate();
+function showGame(){
+    const game = document.querySelector(".game")
+    game.style.display= "inline-block";
+
+    const gameStartButton = document.querySelector(".app button")
+    gameStartButton.style.display= "none";
+    scrollToTarget();
+    startGameAudio.play();
+    playAmbientAudio();
+
+    decreaseTimer();
+    animate();  
+
+}
+
+function scrollToTarget(){
+    const targetElement = document.querySelector(".game");
+    targetElement.scrollIntoView({behavior: "smooth"});
+}
+
+
+function playAmbientAudio(){
+    ambientAudio.volume = 0.5;
+    ambientAudio.loop = true;
+    ambientAudio.play();
+}

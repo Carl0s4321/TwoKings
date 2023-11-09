@@ -15,15 +15,16 @@
     <audio id="grunt1"><source src="./assets/sound/grunt1.mp3" type="audio/mpeg"></audio>
     <audio id="grunt2"><source src="./assets/sound/grunt2.mp3" type="audio/mpeg"></audio>
     <audio id="ambientAudio"><source src="./assets/sound/ambient.mp3" type="audio/mpeg"></audio>
+    <audio id="startEndGameAudio"><source src="./assets/sound/startEndAudio.mp3" type="audio/mpeg"></audio>
 
     <!-- TO DO: make it the ugly ass div more beautiful -->
     <div class="app">
         <div><h1>TWO KINGS</h1></div>
-        <div><p>=====Fighter Game====</p></div>
-        <div><strong>Defeat the other king, Controls: (a,w,d,space) and (arrowLeft,arrowRight,arrowUp, \)</strong></div>
-        
+        <div><p>=====Carlos Sujanto=====</p></div>
+        <button onclick="showGame()"><strong>DEFEAT THE FALSE KING!</strong></button>
         <div class="game">
             <img id="bgImg" src="./assets/bg1.png" alt="background">
+            
             <div class="gameElements">
                 <div class="ui">
                     <!-- p1 profile pic -->
@@ -56,7 +57,29 @@
                 </div>
             </div>
         </div>
-
+        <div class="controlTitle">CONTROLS</div>
+        <div class="controlBox1">
+            <div class="controlBox2">
+                <div class="controlBox3">
+                    <div class="rectangles">w</div>
+                </div>
+                <div class="controlBox3">
+                    <div class="rectangles">a</div>
+                    <div class="rectangles">d</div>
+                    <div class="rectangles attack">c</div>
+                </div>
+            </div>
+            <div class="controlBox2">
+                <div class="controlBox3">
+                    <div class="rectangles">i</div>
+                </div>
+                <div class="controlBox3">
+                    <div class="rectangles attack">n</div>
+                    <div class="rectangles">j</div>
+                    <div class="rectangles">l</div>
+                </div>
+            </div>
+        </div>
         <div class="credit"><p>Assets used:<br>Background picture: https://edermunizz.itch.io/free-pixel-art-forest by edermunizz
             <br>Player1 Sprite: https://luizmelo.itch.io/medieval-king-pack-2 by luizmelo
             <br>player2 Sprite: https://luizmelo.itch.io/medieval-king-pack by luizmelo
