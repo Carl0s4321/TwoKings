@@ -142,6 +142,30 @@
 
 .attackBox{
     position: absolute;
+    /* opacity: 50%; */
+    overflow: hidden;
+}
+
+#attackBox1{
+    display: none;
+}
+
+#attackBox2{
+    display: none;
+}
+
+#player1AttackBoxSprite{
+    image-rendering:pixelated;
+    width: 350px; 
+    object-position: -181px -156px;
+    display: block;
+}
+
+#player2AttackBoxSprite{
+    image-rendering:pixelated;
+    width: 250px; 
+    object-position: -12px -62px;
+    display: block;
 }
 
 .player{
@@ -187,6 +211,7 @@
     animation: moveSpriteSheet 1s steps(8) infinite;
     image-rendering: pixelated;
 }
+
 
 #player2Sprite{
     /* IDLE */
