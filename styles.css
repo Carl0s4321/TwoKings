@@ -1,6 +1,6 @@
 /* Course: SENG 513 */
 /* Date: OCT 22, 2023 */
-/* Assignment 2 */
+/* Assignment 3 */
 /* Name: Carlos Sujanto */
 /* UCID: 30143341 */
 
