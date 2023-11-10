@@ -1,3 +1,8 @@
+<!-- Course: SENG 513 -->
+<!-- Date: OCT 22, 2023 -->
+<!-- Assignment 3 -->
+<!-- Name: Carlos Sujanto -->
+<!-- UCID: 30143341 -->
 function checkCollision({object1, object2}){return(
            object1.position.x + object1.width >= object2.position.x 
         && object1.position.x <= object2.position.x + object2.width

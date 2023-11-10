@@ -1,3 +1,8 @@
+<!-- Course: SENG 513 -->
+<!-- Date: OCT 22, 2023 -->
+<!-- Assignment 3 -->
+<!-- Name: Carlos Sujanto -->
+<!-- UCID: 30143341 -->
 [WHAT I LEARNED]
 - Plan for a project, such as the flowchart of the program and what functions are needed to make it work.
 - Using javascript for the first time
