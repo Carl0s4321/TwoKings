@@ -23,6 +23,7 @@ const grunt1Audio = document.getElementById("grunt1"); // grunt1Audio
 const grunt2Audio = document.getElementById("grunt2"); // grunt2Audio 
 const ambientAudio = document.getElementById("ambientAudio"); // ambientAudio 
 const startGameAudio = document.getElementById("startEndGameAudio"); // GameStartAudio 
+const clashAudio = document.getElementById("clashAudio"); // sword clash audio 
 
 class Player{
     constructor({id,attackBoxId, position, speed, color, offset, width}) { // {a,b} to keep arguments clean. Order doesn't matter
@@ -65,7 +66,7 @@ class Player{
         this.element.style.width = `${this.width}px`;
         this.element.style.height = `${this.height}px`;
         // TESTING PURPOSE
-        this.element.style.backgroundColor = `${this.color}`;
+        // this.element.style.backgroundColor = `${this.color}`;
     
         if(this.isAttacking){
             this.attackBoxElement.style.transform = `translate(${this.attackBox.position.x}px, ${this.attackBox.position.y}px)`;
@@ -309,6 +310,7 @@ function animate(){
     }
 
     if (checkCollision({object1: player1.attackBox, object2: player2.attackBox}) &&  player1.isAttacking && player2.isAttacking && isPlayerFacingEachOther()){
+        clashAudio.play();
         if(scenario === 1){
             // console.log("p1> <p2");
             player1.position.x -= 50;
